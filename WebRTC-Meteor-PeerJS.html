@@ -4,23 +4,27 @@
 
 <body>
   <h1>Welcome to Meteor!</h1>
-
-  {{> hello}}
+  {{> loginButtons}}
+  {{#if currentUser}}
+    {{> hello}}
+  {{/if}}
 </body>
-<template name="hello">  
+
+<template name="hello">
     <h2>Video Chat</h2>
     <div id="video-container">
       <!-- note the 'autoplay' -->
-      Their video: <video id="theirVideo" class="theirVideo" autoplay></video>
-      <video id="myVideo" muted="true" class="myVideo" autoplay></video>: Your video
+      Your friend: <video id="theirVideo" class="theirVideo" autoplay></video>
+      <video id="myVideo" muted="true" class="myVideo" autoplay></video>: You
     </div>
 
     <h2>Controls</h2>
     <div>
       <p>Your id: <span id="myPeerId">...</span></p>
       <p>Make a call</p><br>
-      <input type="text" placeholder="Call user id..." id="remotePeerId">
-      <p><a href="#" id="makeCall">Call</a></p>
-      <p><a href="#" id="endCall">End call</a></p>
+      {{#each users}}
+        <p><a href="#" id="makeCall">Call {{#each emails}}{{address}}{{/each}}</a></p>
+      {{/each}}
+      <p><a href="#" id="endCall">End Call</a></p>
     </div>
 </template>
